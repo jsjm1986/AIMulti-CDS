@@ -5,7 +5,6 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/jsjm1986/AIMulti-CDS/pulls)
 [![Stars](https://img.shields.io/github/stars/jsjm1986/AIMulti-CDS?style=social)](https://github.com/jsjm1986/AIMulti-CDS)
 [![Issues](https://img.shields.io/github/issues/jsjm1986/AIMulti-CDS)](https://github.com/jsjm1986/AIMulti-CDS/issues)
-[![Build Status](https://github.com/jsjm1986/AIMulti-CDS/workflows/CI/badge.svg)](https://github.com/jsjm1986/AIMulti-CDS/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/jsjm1986/AIMulti-CDS)](https://codecov.io/gh/jsjm1986/AIMulti-CDS)
 [![Last Commit](https://img.shields.io/github/last-commit/jsjm1986/AIMulti-CDS)](https://github.com/jsjm1986/AIMulti-CDS/commits/main)
 [![Contributors](https://img.shields.io/github/contributors/jsjm1986/AIMulti-CDS)](https://github.com/jsjm1986/AIMulti-CDS/graphs/contributors)
