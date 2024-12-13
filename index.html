@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI对话游戏</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="container">
+            <!-- API密钥输入模态框 -->
+            <div id="apiKeyModal" class="modal">
+                <div class="modal-content">
+                    <h2><i class="fas fa-key"></i> 输入API密钥</h2>
+                    <div class="form-group">
+                        <input type="password" id="apiKeyInput" placeholder="请输入您的API密钥">
+                        <div id="apiKeyError" class="error-message"></div>
+                    </div>
+                    <button id="submitApiKey" class="primary-btn">确认</button>
+                </div>
+            </div>
+
+            <!-- 主界面 -->
+            <div class="main-content">
+                <!-- 故事设置区域 -->
+                <div class="story-settings">
+                    <div class="form-group">
+                        <div class="setting-header">
+                            <label for="storyBackground">
+                                <i class="fas fa-book"></i> 故事背景
+                            </label>
+                            <div class="current-status">
+                                当前背景：<span id="currentBackground" class="status-text">未设置</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <textarea id="storyBackground" rows="2" placeholder="设置故事发生的背景..."></textarea>
+                            <button id="updateBackground" class="secondary-btn">
+                                <i class="fas fa-save"></i> 更新背景
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="setting-header">
+                            <label for="currentEvent">
+                                <i class="fas fa-star"></i> 当前事件
+                            </label>
+                            <div class="current-status">
+                                当前事件：<span id="currentEventStatus" class="status-text">未设置</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <textarea id="currentEvent" rows="2" placeholder="设置当前正在发生的事件..."></textarea>
+                            <button id="updateEvent" class="secondary-btn">
+                                <i class="fas fa-save"></i> 更新事件
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 角色管理区域 -->
+                <div class="agents-section">
+                    <div id="agents-container" class="agents-container">
+                        <button id="createAgent" class="primary-btn" onclick="window.aiChat.showCreateAgentModal()">
+                            <i class="fas fa-user-plus"></i> 创建新角色
+                        </button>
+                    </div>
+                    <!-- 添加关系展示面板 -->
+                    <div class="relationships-panel">
+                        <h3><i class="fas fa-heart"></i> 关系状态</h3>
+                        <div id="relationships-container" class="relationships-container">
+                            <!-- 关系状态将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 控制面板 -->
+                <div class="controls-section">
+                    <div class="controls">
+                        <button id="startConversation" class="primary-btn">
+                            <i class="fas fa-play"></i> 开始对话
+                        </button>
+                        <button id="pauseConversation" class="secondary-btn" style="display: none;">
+                            <i class="fas fa-pause"></i> 暂停对话
+                        </button>
+                        <button id="resetConversation" class="secondary-btn">
+                            <i class="fas fa-redo"></i> 重置对话
+                        </button>
+                        <button id="toggleAutoScroll" class="secondary-btn active">
+                            <i class="fas fa-scroll"></i> 自动滚动
+                        </button>
+                        <div class="speed-control">
+                            <label><i class="fas fa-tachometer-alt"></i> 对话速度</label>
+                            <input type="range" id="conversationSpeed" min="1" max="5" value="3">
+                            <span class="speed-value">正常</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 对话区域 -->
+                <div class="conversation-section">
+                    <div class="conversation-container">
+                        <div class="chat-messages"></div>
+                        <div class="chat-input-container">
+                            <input type="text" id="userInput" placeholder="输入消息..." />
+                            <button id="sendMessage" class="primary-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 创建/编辑角色模态框 -->
+            <div class="create-agent-modal modal" id="createAgentModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="modalTitle"><i class="fas fa-user-plus"></i> 创建新角色</h2>
+                        <button class="close-btn" onclick="window.aiChat.hideCreateAgentModal()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="agentAvatar">
+                                <i class="fas fa-user-circle"></i> 头像
+                            </label>
+                            <div class="avatar-selector">
+                                <div class="selected-avatar">
+                                    <img id="selectedAvatarPreview" src="" alt="Selected Avatar">
+                                </div>
+                                <button type="button" id="openAvatarSelector" class="secondary-btn">
+                                    <i class="fas fa-images"></i> 选择头像
+                                </button>
+                            </div>
+                            <input type="hidden" id="agentAvatar" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="agentName">
+                                <i class="fas fa-signature"></i> 角色名称
+                            </label>
+                            <input type="text" id="agentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="agentRole">
+                                <i class="fas fa-user-tag"></i> 角色定位
+                            </label>
+                            <input type="text" id="agentRole" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="agentBackground">
+                                <i class="fas fa-book"></i> 背景故事
+                            </label>
+                            <textarea id="agentBackground" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="agentTraits">
+                                <i class="fas fa-fingerprint"></i> 性格特点
+                            </label>
+                            <input type="text" id="agentTraits" placeholder="用逗号分隔" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="agentInterests">
+                                <i class="fas fa-heart"></i> 兴趣爱好
+                            </label>
+                            <input type="text" id="agentInterests" placeholder="用逗号分隔" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="agentSpeakingStyle">
+                                <i class="fas fa-comments"></i> 说话风格
+                            </label>
+                            <textarea id="agentSpeakingStyle" rows="2" required></textarea>
+                        </div>
+                        <div class="personality-sliders">
+                            <div class="slider-group">
+                                <label for="agentHumor">
+                                    <i class="fas fa-laugh"></i> 幽默感
+                                </label>
+                                <input type="range" id="agentHumor" min="0" max="100" value="50">
+                                <span class="slider-value">50</span>
+                            </div>
+                            <div class="slider-group">
+                                <label for="agentCreativity">
+                                    <i class="fas fa-lightbulb"></i> 创造力
+                                </label>
+                                <input type="range" id="agentCreativity" min="0" max="100" value="50">
+                                <span class="slider-value">50</span>
+                            </div>
+                            <div class="slider-group">
+                                <label for="agentFriendliness">
+                                    <i class="fas fa-smile"></i> 友好度
+                                </label>
+                                <input type="range" id="agentFriendliness" min="0" max="100" value="50">
+                                <span class="slider-value">50</span>
+                            </div>
+                            <div class="slider-group">
+                                <label for="agentSeriousness">
+                                    <i class="fas fa-balance-scale"></i> 严肃度
+                                </label>
+                                <input type="range" id="agentSeriousness" min="0" max="100" value="50">
+                                <span class="slider-value">50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="deleteAgent" class="danger-btn" style="display: none;">
+                            <i class="fas fa-trash"></i> 删除
+                        </button>
+                        <div class="button-group">
+                            <button type="button" onclick="window.aiChat.hideCreateAgentModal()" class="secondary-btn">
+                                <i class="fas fa-times"></i> 取消
+                            </button>
+                            <button type="button" id="submitAgent" class="primary-btn">
+                                <i class="fas fa-save"></i> 创建
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 头像选择器模态框 -->
+            <div class="avatar-selector-modal modal" id="avatarSelectorModal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><i class="fas fa-images"></i> 选择头像</h2>
+                        <button class="close-btn" onclick="window.aiChat.hideAvatarSelector()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="avatar-grid" id="avatarGrid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/agents.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
