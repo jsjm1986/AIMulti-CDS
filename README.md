@@ -5,15 +5,15 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/jsjm1986/AIMulti-CDS/pulls)
 [![Stars](https://img.shields.io/github/stars/jsjm1986/AIMulti-CDS?style=social)](https://github.com/jsjm1986/AIMulti-CDS)
 [![Issues](https://img.shields.io/github/issues/jsjm1986/AIMulti-CDS)](https://github.com/jsjm1986/AIMulti-CDS/issues)
-[![Build Status](https://img.shields.io/travis/jsjm1986/AIMulti-CDS/main)](https://travis-ci.org/jsjm1986/AIMulti-CDS)
+[![Build Status](https://github.com/jsjm1986/AIMulti-CDS/workflows/CI/badge.svg)](https://github.com/jsjm1986/AIMulti-CDS/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/jsjm1986/AIMulti-CDS)](https://codecov.io/gh/jsjm1986/AIMulti-CDS)
 [![Last Commit](https://img.shields.io/github/last-commit/jsjm1986/AIMulti-CDS)](https://github.com/jsjm1986/AIMulti-CDS/commits/main)
 [![Contributors](https://img.shields.io/github/contributors/jsjm1986/AIMulti-CDS)](https://github.com/jsjm1986/AIMulti-CDS/graphs/contributors)
 [![Code Size](https://img.shields.io/github/languages/code-size/jsjm1986/AIMulti-CDS)](https://github.com/jsjm1986/AIMulti-CDS)
 [![Top Language](https://img.shields.io/github/languages/top/jsjm1986/AIMulti-CDS)](https://github.com/jsjm1986/AIMulti-CDS)
-[![Node Version](https://img.shields.io/node/v/AIMulti-CDS)](https://nodejs.org/)
-[![NPM Version](https://img.shields.io/npm/v/AIMulti-CDS)](https://www.npmjs.com/package/AIMulti-CDS)
-[![Downloads](https://img.shields.io/npm/dt/AIMulti-CDS)](https://www.npmjs.com/package/AIMulti-CDS)
+[![Node Version](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen)](https://nodejs.org/)
+[![NPM Version](https://img.shields.io/badge/npm-%3E%3D6.0.0-brightgreen)](https://www.npmjs.com/package/AIMulti-CDS)
+[![Downloads](https://img.shields.io/github/downloads/jsjm1986/AIMulti-CDS/total)](https://github.com/jsjm1986/AIMulti-CDS/releases)
 
 [English](README_EN.md) | 简体中文
 
@@ -50,10 +50,10 @@
 
 ### 商业化潜力
 
-#### 1. 产品延展方向
+#### 1. 产品���展方向
 
 ##### 垂直领域解决方案
-- **教育��训版**
+- **教育培训版**
   - 语言教学系统：多语言环境下的对话练习
   - 职业培训平台：模拟工作场景的技能训练
   - 儿童教育助手：寓教于乐的互动学习体验
@@ -156,7 +156,7 @@
 - 开发多模态交互能力
 - 支持更复杂的群体行为模拟
 - 建立用户数据分析系统
-- 开发跨平台解决��案
+- 开发跨平台解决方案
 
 ## 主要特性
 
@@ -204,7 +204,7 @@
 1. 设置故事背景（可选）
 2. 点击"开始对话"按钮
 3. 通过输入框与角色互动
-4. ���用控制按钮：
+4. 用控制按钮：
    - 暂停/继续对话
    - 调整对话速度
    - 开启/关闭动滚动
